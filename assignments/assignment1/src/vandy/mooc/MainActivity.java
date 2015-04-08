@@ -73,6 +73,8 @@ public class MainActivity extends LifecycleLoggingActivity {
             if (uri != null) {
                 Intent intent = makeDownloadImageIntent(getUrl());
                 startActivityForResult(intent, DOWNLOAD_IMAGE_REQUEST);
+            } else {
+                Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,14 +144,7 @@ public class MainActivity extends LifecycleLoggingActivity {
         if (uri == null || uri.equals(""))
             url = mDefaultUrl;
 
-        if (URLUtil.isValidUrl(url.toString())) {
-            return url;
-        } else {
-            Toast.makeText(this,
-                           "Invalid URL",
-                           Toast.LENGTH_SHORT).show();
-            return null;
-        } 
+        return URLUtil.isValidUrl(url.toString()) ? url : null;
     }
 
     /**
