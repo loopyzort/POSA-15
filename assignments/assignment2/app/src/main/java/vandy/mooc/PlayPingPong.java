@@ -122,9 +122,7 @@ public class PlayPingPong implements Runnable {
             // @@ TODO - you fill in here, replacing "true" with the
             // appropriate code.
             if (mIterationsCompleted < mMaxIterations && reqMsg.obj instanceof Handler) {
-                Handler obj = (Handler) reqMsg.obj;
                 mOutputStrategy.print(mMyType == PingPong.PING ? "ping" : "pong");
-                obj.sendMessage(Message.obtain(obj, 0, reqMsg.getTarget()));
                 mIterationsCompleted++;
             } else {
                 quit();
@@ -133,6 +131,9 @@ public class PlayPingPong implements Runnable {
                 // thread can join with it.
                 // @@ TODO - you fill in here.
             }
+
+            Handler obj = (Handler) reqMsg.obj;
+            obj.sendMessage(Message.obtain(obj, 0, reqMsg.getTarget()));
 
             // Create a Message that contains the Handler as the
             // reqMsg "target" and our Handler as the "obj" to use for
@@ -172,13 +173,6 @@ public class PlayPingPong implements Runnable {
         PingPongThread pong = new PingPongThread(PingPong.PONG);
         ping.start();
         pong.start();
-        // Create the ping and pong threads.
-        // @@ TODO - you fill in here.
-
-        // Start ping and pong threads, which cause their Looper to
-        // loop.
-        // @@ TODO - you fill in here.
-
 
         try {
             ping.join();
